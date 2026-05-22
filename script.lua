@@ -1,10 +1,10 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Marretão Pro | Visual Clean",
-   LoadingTitle = "Limpando Visuais...",
-   LoadingSubtitle = "by Gemini",
-   ConfigurationSaving = { Enabled = true, FolderName = "MarretaHub" }
+   Name = "flee the facility",
+   LoadingTitle = "carregando script...",
+   LoadingSubtitle = "feito por zx red",
+   ConfigurationSaving = { Enabled = true, FolderName = "flee the facility" }
 })
 
 local TabESP = Window:CreateTab("Visual (ESP)", 4483362458)
@@ -100,7 +100,7 @@ local function applyComputerESP()
                             end
                         end
 
-                        label.Text = status .. " ("..dist.."m)"
+                        label.Text = status .. " ("..dist.." m)"
                         label.TextColor3 = color
                         highlight.OutlineColor = color
                     end
@@ -113,13 +113,13 @@ local function applyComputerESP()
 end
 
 TabESP:CreateToggle({
-   Name = "ESP Jogadores (Contorno)",
+   Name = "ESP Jogadores",
    CurrentValue = false,
    Callback = function(v) espPlayersActive = v; if v then for _, p in pairs(game.Players:GetPlayers()) do createPlayerESP(p) end end end
 })
 
 TabESP:CreateToggle({
-   Name = "ESP Computadores (Contorno)",
+   Name = "ESP Computadores",
    CurrentValue = false,
    Callback = function(v) espComputersActive = v; if v then applyComputerESP() end end
 })
