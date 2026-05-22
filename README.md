@@ -1,10 +1,10 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Marretão Pro | Visual Clean",
-   LoadingTitle = "Limpando Visuais...",
-   LoadingSubtitle = "by Gemini",
-   ConfigurationSaving = { Enabled = true, FolderName = "MarretaHub" }
+   Name = "flee the facility",
+   LoadingTitle = "carregando script...",
+   LoadingSubtitle = "feito por zx red",
+   ConfigurationSaving = { Enabled = true, FolderName = "flee the facility" }
 })
 
 local TabESP = Window:CreateTab("Visual (ESP)", 4483362458)
@@ -16,7 +16,6 @@ local espComputersActive = false
 local walkSpeedValue, jumpPowerValue = 16, 50
 local lockSpeedActive, lockJumpActive = false, false
 
--- === LOOP DE FORÇA DE ATRIBUTOS ===
 task.spawn(function()
     while true do
         local hum = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
@@ -28,16 +27,14 @@ task.spawn(function()
     end
 end)
 
--- === ESP JOGADORES (SÓ CONTORNO) ===
 local function createPlayerESP(p)
     if p == game.Players.LocalPlayer then return end
     local function setup(char)
         local head = char:WaitForChild("Head", 10)
         
-        -- Highlight configurado para ser transparente por dentro
         local highlight = Instance.new("Highlight", char)
-        highlight.FillTransparency = 1 -- TOTALMENTE TRANSPARENTE POR DENTRO
-        highlight.OutlineTransparency = 0 -- CONTORNO VISÍVEL
+        highlight.FillTransparency = 1
+        highlight.OutlineTransparency = 0
         highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
 
         local billboard = Instance.new("BillboardGui", head)
@@ -56,7 +53,7 @@ local function createPlayerESP(p)
                     
                     label.Text = string.format("%s [%s]\n(%sm)", p.DisplayName, isBeast and "BESTA" or "SOBREVIVENTE", dist)
                     label.TextColor3 = color
-                    highlight.OutlineColor = color -- Só muda a cor da linha
+                    highlight.OutlineColor = color
                 end
                 task.wait(0.1)
             end
@@ -67,13 +64,12 @@ local function createPlayerESP(p)
     p.CharacterAdded:Connect(setup)
 end
 
--- === ESP COMPUTADORES (SÓ CONTORNO) ===
 local function applyComputerESP()
     for _, obj in pairs(game.Workspace:GetDescendants()) do
         if obj.Name == "ComputerTable" and obj:IsA("Model") then
             
             local highlight = Instance.new("Highlight", obj)
-            highlight.FillTransparency = 1 -- TOTALMENTE TRANSPARENTE POR DENTRO
+            highlight.FillTransparency = 1
             highlight.OutlineTransparency = 0
 
             local billboard = Instance.new("BillboardGui", obj)
@@ -90,23 +86,23 @@ local function applyComputerESP()
                         local pos = obj.PrimaryPart and obj.PrimaryPart.Position or obj:GetModelCFrame().p
                         local dist = math.floor((pos - lpRoot.Position).Magnitude)
                         
-                        local color = Color3.fromRGB(0, 150, 255) -- Azul padrão
+                        local color = Color3.fromRGB(0, 150, 255)
                         local status = "Computador"
 
                         if screen then
                             local c = screen.Color
                             if c.G > c.R and c.G > c.B and c.G > 0.4 then
-                                color = Color3.fromRGB(0, 255, 0) -- Verde
+                                color = Color3.fromRGB(0, 255, 0)
                                 status = "Computador Completo"
                             elseif c.R > c.G and c.R > c.B and c.R > 0.4 then
-                                color = Color3.fromRGB(255, 0, 0) -- Vermelho
+                                color = Color3.fromRGB(255, 0, 0)
                                 status = "Computador ERROR"
                             end
                         end
 
-                        label.Text = status .. " ("..dist.."m)"
+                        label.Text = status .. " ("..dist.." m)"
                         label.TextColor3 = color
-                        highlight.OutlineColor = color -- Apenas a linha externa brilha
+                        highlight.OutlineColor = color
                     end
                     task.wait(0.1)
                 end
@@ -116,15 +112,14 @@ local function applyComputerESP()
     end
 end
 
--- === INTERFACE ===
 TabESP:CreateToggle({
-   Name = "ESP Jogadores (Contorno)",
+   Name = "ESP Jogadores",
    CurrentValue = false,
    Callback = function(v) espPlayersActive = v; if v then for _, p in pairs(game.Players:GetPlayers()) do createPlayerESP(p) end end end
 })
 
 TabESP:CreateToggle({
-   Name = "ESP Computadores (Contorno)",
+   Name = "ESP Computadores",
    CurrentValue = false,
    Callback = function(v) espComputersActive = v; if v then applyComputerESP() end end
 })
@@ -145,4 +140,3 @@ TabMisc:CreateButton({
    Name = "Relogar",
    Callback = function() game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer) end
 })
-# Fleethefacility
